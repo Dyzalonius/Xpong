@@ -7,11 +7,12 @@ import processing.core.PApplet;
  *
  * @author Ties van Kipshagen
  */
-public class Ball {
+public class Ball extends GameObject {
 
     PApplet applet;
-    float posX, posY, deltaX, deltaY;
+    float posX, posY;
     int ballRadius, ballSize;
+    CollisionBoxRect collisionBox;
 
     /**
      * Empty constructor.
@@ -26,6 +27,8 @@ public class Ball {
         this.deltaY = 0;
         this.ballRadius = applet.width / 160;
         this.ballSize = 2 * ballRadius;
+        this.collisionBox = new CollisionBoxRect(this.posX, this.posY, 2, this.ballSize, this.ballSize);
+        Applet.gameObjectArray.add(this);
     }
 
     /**
@@ -45,6 +48,8 @@ public class Ball {
         this.deltaY = deltaY;
         this.ballRadius = applet.width / 160;
         this.ballSize = 2 * ballRadius;
+        this.collisionBox = new CollisionBoxRect(this.posX, this.posY, 2, this.ballSize, this.ballSize);
+        Applet.gameObjectArray.add(this);
     }
 
     /**
@@ -66,24 +71,6 @@ public class Ball {
     }
 
     /**
-     * Getter deltaX.
-     *
-     * @return
-     */
-    float getDeltaX() {
-        return deltaX;
-    }
-
-    /**
-     * Getter deltaY.
-     *
-     * @return
-     */
-    float getDeltaY() {
-        return deltaY;
-    }
-
-    /**
      * Getter ballSize.
      *
      * @return
@@ -100,29 +87,23 @@ public class Ball {
     int getBallRadius() {
         return ballRadius;
     }
-
-    /**
-     * Inverts deltaX.
-     */
-    void switchDeltaX() {
-        deltaX = -deltaX;
-    }
-
-    /**
-     * Inverts deltaY.
-     */
-    void switchDeltaY() {
-        deltaY = -deltaY;
+    
+    @Override
+    public CollisionBoxRect getCollisionBox() {
+        return collisionBox;
     }
 
     /**
      * Handles the ball.
      */
     void handleBall() {
-        handleCollision();
+        //handleCollision();
 
         posX += deltaX;
         posY += deltaY;
+        
+        collisionBox.setPosX(posX);
+        collisionBox.setPosY(posY);
 
         applet.noStroke();
         applet.fill(255);
@@ -132,7 +113,7 @@ public class Ball {
     /**
      * Handles collision with other objects
      */
-    void handleCollision() {
+    void handleCollision() { //TODO: remove and fully integrate in collision
         // collision top
         if ((posY - ballRadius) < 0) {
             deltaY = Math.abs(deltaY);
@@ -243,8 +224,8 @@ public class Ball {
         Applet.effectArray.add(explosion);
         
         // invert velocities.
-        ball.switchDeltaX();
-        ball.switchDeltaY();
+        ball.invertDeltaX();
+        ball.invertDeltaY();
     }
 
     /**

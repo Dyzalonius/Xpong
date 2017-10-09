@@ -7,12 +7,13 @@ import processing.core.PApplet;
  *
  * @author Ties van Kipshagen
  */
-public class Powerup extends Main {
+public class Powerup extends GameObject {
 
     PApplet applet;
     float posX, posY;
     int powerupType, powerupSize, frames;
     boolean powerupStatus;
+    CollisionBoxRect collisionBox;
 
     /**
      * Constructor.
@@ -26,6 +27,7 @@ public class Powerup extends Main {
         this.powerupType = genRandomPowerupType();
 
         genRandomPos();
+
     }
 
     /**
@@ -62,6 +64,11 @@ public class Powerup extends Main {
      */
     public boolean getPowerupStatus() {
         return powerupStatus;
+    }
+
+    @Override
+    public CollisionBoxRect getCollisionBox() {
+        return collisionBox;
     }
 
     /**
@@ -156,6 +163,8 @@ public class Powerup extends Main {
             frames++;
         } else {
             powerupStatus = true;
+            this.collisionBox = new CollisionBoxRect(this.posX, this.posY, 0, this.powerupSize, this.powerupSize);
+            Applet.gameObjectArray.add(this);
         }
     }
 

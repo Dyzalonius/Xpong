@@ -7,13 +7,14 @@ import processing.core.PApplet;
  *
  * @author Ties van Kipshagen
  */
-public class Paddle extends Main {
+public class Paddle extends GameObject {
 
     PApplet applet;
-    float posX, posY, deltaY;
+    float posX, posY;
     int paddleWidth, paddleHalfHeight, paddleHeight, score;
     char charUp, charDown;
     boolean keyUp, keyDown;
+    CollisionBoxRect collisionBox;
 
     /**
      * Constructor.
@@ -36,6 +37,8 @@ public class Paddle extends Main {
         this.keyUp = false;
         this.keyDown = false;
         this.score = 0;
+        this.collisionBox = new CollisionBoxRect(this.posX + (this.paddleWidth / 2), this.posY + this.paddleHalfHeight, 1, this.paddleWidth, this.paddleHeight);
+        Applet.gameObjectArray.add(this);
     }
 
     /**
@@ -109,6 +112,11 @@ public class Paddle extends Main {
     public int getScore() {
         return score;
     }
+    
+    @Override
+    public CollisionBoxRect getCollisionBox() {
+        return collisionBox;
+    }
 
     /**
      * Setter keyUp.
@@ -140,14 +148,17 @@ public class Paddle extends Main {
      */
     public void handlePaddle() {
         // Move paddle up
-        if (keyUp && posY >= 0) {
+        if (keyUp && posY >= 0) { //TODO: move this piece of collision
             posY -= deltaY;
         }
 
         // Move paddle down
-        if (keyDown && (posY + paddleHeight) <= applet.height) {
+        if (keyDown && (posY + paddleHeight) <= applet.height) { //TODO: move this piece of collision
             posY += deltaY;
         }
+        
+        collisionBox.setPosX(posX+paddleWidth/2);
+        collisionBox.setPosY(posY+paddleHalfHeight);
 
         applet.fill(255, 255);
         applet.strokeWeight(0);

@@ -3,13 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Ties/Documents/Workspace/Xpong/src/xpong/GameObject.java</file>
             <file>file:/C:/Users/Ties/Documents/Workspace/Xpong/src/xpong/Powerup.java</file>
-            <file>file:/C:/Users/Ties/Documents/Workspace/Xpong/src/xpong/Main.java</file>
-            <file>file:/C:/Users/Ties/Documents/Workspace/Xpong/src/xpong/EffectExplosion.java</file>
-            <file>file:/C:/Users/Ties/Documents/Workspace/Xpong/src/xpong/EffectTrail.java</file>
+            <file>file:/C:/Users/Ties/Documents/Workspace/Xpong/src/xpong/Box.java</file>
+            <file>file:/C:/Users/Ties/Documents/Workspace/Xpong/src/xpong/CollisionBoxRect.java</file>
             <file>file:/C:/Users/Ties/Documents/Workspace/Xpong/src/xpong/Applet.java</file>
             <file>file:/C:/Users/Ties/Documents/Workspace/Xpong/src/xpong/Paddle.java</file>
-            <file>file:/C:/Users/Ties/Documents/Workspace/Xpong/src/xpong/Effect.java</file>
+            <file>file:/C:/Users/Ties/Documents/Workspace/Xpong/src/xpong/CollisionBox.java</file>
             <file>file:/C:/Users/Ties/Documents/Workspace/Xpong/src/xpong/Ball.java</file>
         </group>
     </open-files>
