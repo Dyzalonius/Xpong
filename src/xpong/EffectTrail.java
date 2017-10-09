@@ -33,10 +33,10 @@ public class EffectTrail extends Effect {
     }
 
     /**
-     * Handles effect every frame, both drawing and cleanup.
+     * Updates effect every frame, both drawing and cleanup.
      */
     @Override
-    public void handleEffect() {
+    public void updateEffect() {
         // remove effect if ball is not being updated anymore, frames > 100 to make sure its not removed on spawn
         if (!(Applet.ballArray.contains(target)) && frames > 100) {
             if (trailArray.isEmpty()) {
@@ -48,18 +48,21 @@ public class EffectTrail extends Effect {
             trailArray.add(currentPos);
         }
 
-        // draw the trail with positions from the trailArray
-        for (int i = 0; i < trailArray.size(); i++) {
-            applet.noStroke();
-            applet.fill(255, 50 - (100 - i) / 2);
-            applet.ellipse(trailArray.get(i)[0], trailArray.get(i)[1], (float) (target.getBallSize()), (float) (target.getBallSize()));
-        }
-
         // remove the oldest position because obsolete (cleanup)
         if (!trailArray.isEmpty()) {
             trailArray.remove(0);
         }
 
         frames++;
+    }
+    
+    @Override
+    public void drawEffect() {
+        // draw the trail with positions from the trailArray
+        for (int i = 0; i < trailArray.size(); i++) {
+            applet.noStroke();
+            applet.fill(255, 50 - (100 - i) / 2);
+            applet.ellipse(trailArray.get(i)[0], trailArray.get(i)[1], (float) (target.getBallSize()), (float) (target.getBallSize()));
+        }
     }
 }

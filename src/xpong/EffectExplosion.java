@@ -24,19 +24,21 @@ public class EffectExplosion extends Effect {
     }
 
     /**
-     * Handles effect every frame, both drawing and cleanup.
+     * Updates effect every frame, both drawing and cleanup.
      */
     @Override
-    public void handleEffect() {
-        applet.fill(255, 0);
-        applet.strokeWeight(5);
-        applet.stroke(255);
-
-        applet.ellipse(posX, posY, frames * 5, frames * 5);
-
+    public void updateEffect() {
         if (this.frames >= this.framesMax) {
             Applet.effectArray.remove(this);
         }
         frames++;
+    }
+    
+    @Override
+    public void drawEffect() {
+        applet.fill(255, 0);
+        applet.strokeWeight(5);
+        applet.stroke(255);
+        applet.ellipse(posX, posY, frames * 5, frames * 5);
     }
 }

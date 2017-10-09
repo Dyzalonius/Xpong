@@ -108,7 +108,11 @@ public class Powerup extends GameObject {
         }
         return type;
     }
-
+    
+    public void updatePowerup() {
+        
+    }
+    
     /**
      * Draws the powerup.
      */

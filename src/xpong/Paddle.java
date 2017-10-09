@@ -144,9 +144,9 @@ public class Paddle extends GameObject {
     }
 
     /**
-     * Handles the paddle.
+     * Updates the paddle.
      */
-    public void handlePaddle() {
+    public void updatePaddle() {
         // Move paddle up
         if (keyUp && posY >= 0) { //TODO: move this piece of collision
             posY -= deltaY;
@@ -159,7 +159,9 @@ public class Paddle extends GameObject {
         
         collisionBox.setPosX(posX+paddleWidth/2);
         collisionBox.setPosY(posY+paddleHalfHeight);
-
+    }
+    
+    public void drawPaddle() {
         applet.fill(255, 255);
         applet.strokeWeight(0);
         applet.stroke(255);

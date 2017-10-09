@@ -57,7 +57,7 @@ public class Ball extends GameObject {
      *
      * @return
      */
-    float getPosX() {
+    public float getPosX() {
         return posX;
     }
 
@@ -66,7 +66,7 @@ public class Ball extends GameObject {
      *
      * @return
      */
-    float getPosY() {
+    public float getPosY() {
         return posY;
     }
 
@@ -75,7 +75,7 @@ public class Ball extends GameObject {
      *
      * @return
      */
-    int getBallSize() {
+    public int getBallSize() {
         return ballSize;
     }
 
@@ -84,7 +84,7 @@ public class Ball extends GameObject {
      *
      * @return
      */
-    int getBallRadius() {
+    public int getBallRadius() {
         return ballRadius;
     }
     
@@ -94,17 +94,17 @@ public class Ball extends GameObject {
     }
 
     /**
-     * Handles the ball.
+     * Update the ball.
      */
-    void handleBall() {
-        //handleCollision();
-
+    public void updateBall() {
         posX += deltaX;
         posY += deltaY;
         
         collisionBox.setPosX(posX);
         collisionBox.setPosY(posY);
-
+    }
+    
+    public void drawBall() {
         applet.noStroke();
         applet.fill(255);
         applet.ellipse(posX, posY, ballSize, ballSize);
@@ -113,7 +113,7 @@ public class Ball extends GameObject {
     /**
      * Handles collision with other objects
      */
-    void handleCollision() { //TODO: remove and fully integrate in collision
+    private void handleCollision() { //TODO: remove and fully integrate in collision
         // collision top
         if ((posY - ballRadius) < 0) {
             deltaY = Math.abs(deltaY);

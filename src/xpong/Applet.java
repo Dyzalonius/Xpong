@@ -40,14 +40,14 @@ public class Applet extends PApplet {
         paddleArray = new ArrayList<>();
         powerupArray = new ArrayList<>();
         gameObjectArray = new ArrayList<>();
-        
+
         boxArray.add((new Box(0, -10, width, 10, this)));
         boxArray.add((new Box(0, height, width, 10, this)));
         //boxArray.add((new Box(-10, 0, 10, height, this)));
         //boxArray.add((new Box(width, 0, 10, height, this)));
-        
+
         paddleArray.add((new Paddle(width / 80, 'W', 'S', this))); //TODO: allow for keyinput UP and DOWN
-        paddleArray.add((new Paddle(width - 2*(width / 80), 'O', 'L', this)));
+        paddleArray.add((new Paddle(width - 2 * (width / 80), 'O', 'L', this)));
     }
 
     /**
@@ -56,15 +56,8 @@ public class Applet extends PApplet {
     @Override
     public void draw() {
         if (focused) {
-            background(0);
-            drawMiddleLine();
-            drawScores();
-
-            handleBalls();
-            handleEffects();
-            handlePowerups();
-            handlePaddles();
-            handleCollision();
+            updateGame();
+            drawGame();
         } else {
             background(0);
             fill(255);
@@ -72,6 +65,25 @@ public class Applet extends PApplet {
             textSize(textSize);
             text("PAUSED", width / 40, height / 2 + (textSize / 4));
         }
+    }
+
+    public void updateGame() {
+        updateBalls();
+        updateEffects();
+        updatePowerups();
+        updatePaddles();
+        handleCollision();
+    }
+
+    public void drawGame() {
+        background(0);
+        
+        drawMiddleLine();
+        drawScores();
+        drawBalls();
+        drawEffects();
+        drawPowerups();
+        drawPaddles();
     }
 
     /**
@@ -140,9 +152,9 @@ public class Applet extends PApplet {
     }
 
     /**
-     * Handle all balls every frame.
+     * Update all balls every frame.
      */
-    private void handleBalls() {
+    private void updateBalls() {
         // if no balls remaining, spawn new ball
         if (ballArray.isEmpty()) {
             Ball ball = new Ball(this);
@@ -153,43 +165,71 @@ public class Applet extends PApplet {
             Applet.effectArray.add(trail);
         }
 
-        // handle all balls
+        // update all balls
         for (int i = 0; i < ballArray.size(); i++) {
-            ballArray.get(i).handleBall();
+            ballArray.get(i).updateBall();
+        }
+    }
+    
+    private void drawBalls() {
+        // draw all balls
+        for (int i = 0; i < ballArray.size(); i++) {
+            ballArray.get(i).drawBall();
         }
     }
 
     /**
-     * Handle all effects every frame.
+     * Update all effects every frame.
      */
-    private void handleEffects() {
-        // handle all explosions
+    private void updateEffects() {
+        // update all explosions
         for (int i = 0; i < effectArray.size(); i++) {
-            effectArray.get(i).handleEffect();
+            effectArray.get(i).updateEffect();
+        }
+    }
+    
+    private void drawEffects() {
+        // draw all explosions
+        for (int i = 0; i < effectArray.size(); i++) {
+            effectArray.get(i).drawEffect();
         }
     }
 
     /**
-     * Handle all paddles every frame.
+     * Update all paddles every frame.
      */
-    private void handlePaddles() {
-        // handle all paddles
+    private void updatePaddles() {
+        // update all paddles
         for (int i = 0; i < paddleArray.size(); i++) {
-            paddleArray.get(i).handlePaddle();
+            paddleArray.get(i).updatePaddle();
+        }
+    }
+    
+    private void drawPaddles() {
+        // draw all paddles
+        for (int i = 0; i < paddleArray.size(); i++) {
+            paddleArray.get(i).drawPaddle();
         }
     }
 
     /**
-     * Handle all powerups every frame.
+     * Update all powerups every frame.
      */
-    private void handlePowerups() {
+    private void updatePowerups() {
         // randomly (one in 1000 frames) spawn new powerups
         if (powerupArray.size() < 3 && Math.random() > 0.999) {
             Powerup powerup = new Powerup(this);
             powerupArray.add(powerup);
         }
-
-        // handle all powerups
+        
+        // update all powerups
+        for (int i = 0; i < powerupArray.size(); i++) {
+            powerupArray.get(i).updatePowerup();
+        }
+    }
+    
+    private void drawPowerups() {
+        // draw all powerups
         for (int i = 0; i < powerupArray.size(); i++) {
             powerupArray.get(i).drawPowerup();
         }
@@ -213,19 +253,19 @@ public class Applet extends PApplet {
      */
     private void resetGame() {
         // remove all balls and powerups from gameObjects
-        for (int i = gameObjectArray.size()-1; i >= 0; i--) {
+        for (int i = gameObjectArray.size() - 1; i >= 0; i--) {
             if ((gameObjectArray.get(i) instanceof Ball) || (gameObjectArray.get(i) instanceof Powerup)) {
                 gameObjectArray.remove(i);
             }
         }
-        
+
         ballArray = new ArrayList<>();
         powerupArray = new ArrayList<>();
-        
+
         // spawn ball
         Ball ball = new Ball(this);
         ballArray.add(ball);
-        
+
         // spawn trail for ball
         Effect trail = new EffectTrail(ball.getPosX(), ball.getPosY(), this, ball);
         Applet.effectArray.add(trail);

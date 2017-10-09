@@ -28,7 +28,9 @@ public abstract class Effect {
     }
 
     /**
-     * Abstract method to handle the effect, specific for every effect.
+     * Abstract method to update the effect, specific for every effect.
      */
-    public abstract void handleEffect();
+    public abstract void updateEffect();
+    
+    public abstract void drawEffect();
 }
