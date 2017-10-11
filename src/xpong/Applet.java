@@ -77,7 +77,7 @@ public class Applet extends PApplet {
 
     public void drawGame() {
         background(0);
-        
+
         drawMiddleLine();
         drawScores();
         drawBalls();
@@ -170,7 +170,7 @@ public class Applet extends PApplet {
             ballArray.get(i).updateBall();
         }
     }
-    
+
     private void drawBalls() {
         // draw all balls
         for (int i = 0; i < ballArray.size(); i++) {
@@ -187,7 +187,7 @@ public class Applet extends PApplet {
             effectArray.get(i).updateEffect();
         }
     }
-    
+
     private void drawEffects() {
         // draw all explosions
         for (int i = 0; i < effectArray.size(); i++) {
@@ -204,7 +204,7 @@ public class Applet extends PApplet {
             paddleArray.get(i).updatePaddle();
         }
     }
-    
+
     private void drawPaddles() {
         // draw all paddles
         for (int i = 0; i < paddleArray.size(); i++) {
@@ -221,13 +221,13 @@ public class Applet extends PApplet {
             Powerup powerup = new Powerup(this);
             powerupArray.add(powerup);
         }
-        
+
         // update all powerups
         for (int i = 0; i < powerupArray.size(); i++) {
             powerupArray.get(i).updatePowerup();
         }
     }
-    
+
     private void drawPowerups() {
         // draw all powerups
         for (int i = 0; i < powerupArray.size(); i++) {
@@ -238,9 +238,14 @@ public class Applet extends PApplet {
     private void handleCollision() {
         for (int i = 0; i < gameObjectArray.size(); i++) {
             for (int j = 0; j < gameObjectArray.size(); j++) {
-                if (!gameObjectArray.get(i).equals(gameObjectArray.get(j))) {
+                // make sure its not the exact same object
+                if (!gameObjectArray.get(i).equals(gameObjectArray.get(j))) { //TODO: maybe overwrite this equals?
                     int collisionCheck = gameObjectArray.get(i).getCollisionBox().checkCollision(gameObjectArray.get(j));
                     if (collisionCheck != -1) {
+                        // for debugging
+                        if (gameObjectArray.get(j) instanceof Ball) {
+                            System.out.print(gameObjectArray.get(j) + "\tCOLLIDES WITH " + gameObjectArray.get(i) + "\tON SIDE ");
+                        }
                         gameObjectArray.get(i).getCollisionBox().handleCollision(collisionCheck, gameObjectArray.get(j));
                     }
                 }
