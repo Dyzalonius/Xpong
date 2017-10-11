@@ -96,6 +96,7 @@ public class CollisionBoxRect extends CollisionBox {
             if (gameObject.getCollisionBox().getLastCollision() != this) {
                 return checkCollisionSide(gameObject);
             } else {
+                // for debugging
                 System.out.println("ALREADY COLLIDED");
             }
         }
@@ -109,32 +110,24 @@ public class CollisionBoxRect extends CollisionBox {
         float overlap = 0;
         float newOverlap;
 
-        // collision bot
-        if (posY + height / 2 > collisionBoxRect.getPosY() - collisionBoxRect.getHeight() / 2) {
-            overlap = (posY + height / 2) - (collisionBoxRect.getPosY() - collisionBoxRect.getHeight() / 2);
-            if (gameObject instanceof Ball) {
-                System.out.println(overlap);
-            }
-
-            res = 2;
-        }
         // collision top
         if (posY - height / 2 < collisionBoxRect.getPosY() + collisionBoxRect.getHeight() / 2) {
-            newOverlap = (collisionBoxRect.getPosY() + collisionBoxRect.getHeight() / 2) - (posY - height / 2);
+            overlap = (collisionBoxRect.getPosY() + collisionBoxRect.getHeight() / 2) - (posY - height / 2);
+
+            // for debugging
             if (gameObject instanceof Ball) {
-                System.out.println(newOverlap);
+                System.out.println("\ntop:\t" + overlap);
             }
 
-            if (newOverlap < overlap) {
-                res = 0;
-                overlap = newOverlap;
-            }
+            res = 0;
         }
         // collision right
         if (posX + width / 2 > collisionBoxRect.getPosX() - collisionBoxRect.getWidth() / 2) {
             newOverlap = (posX + width / 2) - (collisionBoxRect.getPosX() - collisionBoxRect.getWidth() / 2);
+
+            // for debugging
             if (gameObject instanceof Ball) {
-                System.out.println(newOverlap);
+                System.out.println("right:\t" + newOverlap);
             }
 
             if (newOverlap < overlap) {
@@ -142,11 +135,26 @@ public class CollisionBoxRect extends CollisionBox {
                 overlap = newOverlap;
             }
         }
+        // collision bot
+        if (posY + height / 2 > collisionBoxRect.getPosY() - collisionBoxRect.getHeight() / 2) {
+            newOverlap = (posY + height / 2) - (collisionBoxRect.getPosY() - collisionBoxRect.getHeight() / 2);
+
+            // for debugging
+            if (gameObject instanceof Ball) {
+                System.out.println("bot:\t" + overlap);
+            }
+            if (newOverlap < overlap) {
+                res = 2;
+                overlap = newOverlap;
+            }
+        }
         // collision left
         if (posX - width / 2 < collisionBoxRect.getPosX() + collisionBoxRect.getWidth() / 2) {
             newOverlap = (collisionBoxRect.getPosX() + collisionBoxRect.getWidth() / 2) - (posX - width / 2);
+
+            // for debugging
             if (gameObject instanceof Ball) {
-                System.out.println(newOverlap);
+                System.out.println("left:\t" + newOverlap);
             }
 
             if (newOverlap < overlap) {
