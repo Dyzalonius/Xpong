@@ -41,8 +41,8 @@ public class Applet extends PApplet {
         powerupArray = new ArrayList<>();
         gameObjectArray = new ArrayList<>();
 
-        boxArray.add((new Box(0, -10, width, 10, this)));
-        boxArray.add((new Box(0, height, width, 10, this)));
+        boxArray.add((new Box(width/2, -10, width, 10, this)));
+        boxArray.add((new Box(width/2, height, width, 10, this)));
         //boxArray.add((new Box(-10, 0, 10, height, this)));
         //boxArray.add((new Box(width, 0, 10, height, this)));
 
@@ -234,7 +234,7 @@ public class Applet extends PApplet {
             powerupArray.get(i).drawPowerup();
         }
     }
-
+//TODO: no box over the WHOLE width
     private void handleCollision() {
         for (int i = 0; i < gameObjectArray.size(); i++) {
             for (int j = 0; j < gameObjectArray.size(); j++) {

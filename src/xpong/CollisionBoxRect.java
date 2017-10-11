@@ -141,7 +141,7 @@ public class CollisionBoxRect extends CollisionBox {
 
             // for debugging
             if (gameObject instanceof Ball) {
-                System.out.println("bot:\t" + overlap);
+                System.out.println("bot:\t" + newOverlap);
             }
             if (newOverlap < overlap) {
                 res = 2;
