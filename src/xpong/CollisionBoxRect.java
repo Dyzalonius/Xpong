@@ -103,18 +103,18 @@ public class CollisionBoxRect extends CollisionBox {
     public int checkCollisionSide(GameObject gameObject) { //TODO: fix. pls.
         CollisionBoxRect collisionBoxRect = (CollisionBoxRect) gameObject.getCollisionBox(); // cant do this if theres ellipses too
         
-        int res = 0;
+        int res = -1;
         float overlap = 0;
         float newOverlap;
         
         // collision bot
         if (posY + height / 2 > collisionBoxRect.getPosY() - collisionBoxRect.getHeight() / 2) {
             res = 2;
-            overlap = posY + height / 2 - collisionBoxRect.getPosY() - collisionBoxRect.getHeight() / 2;
+            overlap = Math.abs(posY + height / 2 - collisionBoxRect.getPosY() - collisionBoxRect.getHeight() / 2);
         }
         // collision top
         if (posY - height / 2 < collisionBoxRect.getPosY() + collisionBoxRect.getHeight() / 2) {
-            newOverlap = collisionBoxRect.getPosY() + collisionBoxRect.getHeight() / 2 - posY - height / 2;
+            newOverlap = Math.abs(collisionBoxRect.getPosY() + collisionBoxRect.getHeight() / 2 - posY - height / 2);
             
             if (newOverlap < overlap) {
                 res = 0;
@@ -123,7 +123,7 @@ public class CollisionBoxRect extends CollisionBox {
         }
         // collision right
         if (posX + width / 2 > collisionBoxRect.getPosX() - collisionBoxRect.getWidth() / 2) {
-            newOverlap = posX + width / 2 - collisionBoxRect.getPosX() - collisionBoxRect.getWidth() / 2;
+            newOverlap = Math.abs(posX + width / 2 - collisionBoxRect.getPosX() - collisionBoxRect.getWidth() / 2);
             
             if (newOverlap < overlap) {
                 res = 1;
@@ -132,7 +132,7 @@ public class CollisionBoxRect extends CollisionBox {
         }
         // collision left
         if (posX - width / 2 < collisionBoxRect.getPosX() + collisionBoxRect.getWidth() / 2) {
-            newOverlap = collisionBoxRect.getPosX() + collisionBoxRect.getWidth() / 2 - posX - width / 2;
+            newOverlap = Math.abs(collisionBoxRect.getPosX() + collisionBoxRect.getWidth() / 2 - posX - width / 2);
             
             if (newOverlap < overlap) {
                 res = 3;
