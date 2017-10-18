@@ -234,7 +234,7 @@ public class Applet extends PApplet {
             powerupArray.get(i).drawPowerup();
         }
     }
-//TODO: no box over the WHOLE width
+    
     private void handleCollision() {
         for (int i = 0; i < gameObjectArray.size(); i++) {
             for (int j = 0; j < gameObjectArray.size(); j++) {
@@ -246,7 +246,7 @@ public class Applet extends PApplet {
                         if (gameObjectArray.get(j) instanceof Ball) {
                             System.out.print(gameObjectArray.get(j) + "\tCOLLIDES WITH " + gameObjectArray.get(i) + "\tON SIDE ");
                         }
-                        gameObjectArray.get(i).getCollisionBox().handleCollision(collisionCheck, gameObjectArray.get(j));
+                        gameObjectArray.get(i).onCollision(collisionCheck, gameObjectArray.get(j));
                     }
                 }
             }

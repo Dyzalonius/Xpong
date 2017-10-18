@@ -44,8 +44,6 @@ public abstract class CollisionBox {
     public void setLastCollision(CollisionBox collisionBox) {
         lastCollision = collisionBox;
     }
-
-    public abstract void handleCollision(int collisionSide, GameObject gameObject);
     
     public abstract int checkCollision(GameObject gameObject);
     
